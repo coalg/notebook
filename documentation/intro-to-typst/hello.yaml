@@ -1,0 +1,19 @@
+title: ご請求書
+company: サンプル株式会社
+department: 企画部
+payer: 山田一郎
+charge-date: 2024/3/31
+addres: 東京都千代田区X-X-X
+charges:
+  - no: 1
+    date: 2024/3/1
+    description: Intel Core i9 14900K
+    price: 100000
+  - no: 2
+    date: 2024/3/3
+    description: Intel Core i7
+    price: 70000
+  - no: 3
+    date: 2024/3/9
+    description: Intel Core i5
+    price: 50000

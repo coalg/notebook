@@ -2,38 +2,49 @@
 
 #set par(justify: true)
 
-#let title = [ 御請求書 ]
-#let company = [ サンプル株式会社 ]
-#let department = [ 企画部 ]
-#let payer = [ 山田 一郎 ]
+#let meta = yaml("hello.yaml")
 
-#align(center, text(17pt)[ *#title* ])
+#align(center, text(17pt)[ *#meta.title* ])
 
-#align(left,
-text(15pt)[
-  #company 御中
-]
-)
+#set align(left)
+#text(15pt)[ #meta.company ]
 
-#align(left,
-text(11pt)[ #department ]
-)
+#text(11pt)[ #meta.department ]
 
-#align(left,
-text(11pt)[ #payer 様 ]
-)
+#text(11pt)[ #meta.payer 様 ]
+
+#set align(right)
+#meta.addres
+
+請求日: #meta.charge-date
+
+#let sum = 0
+
+#set align(left)
 
 = 詳細
 
 #tablex(
-  columns: (auto, auto, 1fr, 1fr),  // 4 columns
+  columns: (auto, auto, 1fr, auto),  // 4 columns
   rows: auto,  // at least 1 row of auto size
   header-row: red,
   align: center + horizon,
   stroke: black,
   auto-vlines: false,
-  [*Username*], [*Data*], [AA], [*Score*],
-  [a], [b], [c], [d],
-  [e], [f], [g], [h],
-  [i], [j], [k], [l]
+  [*番号*], [*注文日*], [*品目*], [*価格*],
+  ..for charge in meta.charges {
+    (charge.at("no"), charge.at("date"), charge.at("description"), "￥" + str(charge.at("price")))
+    sum += charge.at("price")
+  }
+)
+
+#set align(right)
+
+#tablex(
+  columns: (auto, 50pt),
+  align: center + horizon,
+  auto-vlines: false,
+  [小計], "￥" + str(sum),
+  [消費税], "￥" + str(sum * 0.08),
+  [総計], "￥" + str(calc.floor(sum * 1.08))
 )
