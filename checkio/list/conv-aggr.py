@@ -11,7 +11,6 @@ def conv_aggr(data: list[tuple[str, int]]) -> dict[str, int]:
     for k, v in data:
         if d[k] == 0:
             d.pop(k)
-    print(d)
     return dict(d)
 
 print("Example:")
