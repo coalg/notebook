@@ -1,14 +1,40 @@
+import math
+
+
 def friendly_number(number: int, options: dict) -> str:
-    # your code here
-    suffix = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"]
-    nums = f"{number:,}".split(",")
-    i = len(nums) - 1
-    j = options["decimals"]
+    base = options.get("base", 1000)
+    decimals = options.get("decimals", 0)
+    suffix = options.get("suffix", "")
+    powers = options.get("powers", ["", "k", "M", "G", "T", "P", "E", "Z", "Y"])
 
-    out = f"{nums[0]}{suffix[i]}"
+    # Handle zero case
+    if number == 0:
+        return f"0{suffix}"
 
-    print(out)
-    return out
+    # Determine the power index based on the base
+    abs_number = abs(number)
+    power_index = 0
+    while abs_number >= base:
+        abs_number /= base
+        power_index += 1
+
+    # Cap the power index to the maximum available power
+    power_index = min(power_index, len(powers) - 1)
+
+    # Round the number based on the specified decimals
+    if decimals == 0:
+        rounded_number = round(abs_number)
+    else:
+        rounded_number = round(abs_number, decimals)
+
+    # Format the result with the power symbol and suffix
+    result = f"{rounded_number:.{decimals}f}{powers[power_index]}{suffix}"
+
+    # Handle negative numbers
+    if number < 0:
+        result = "-" + result
+
+    return result
 
 
 print("Example:")
