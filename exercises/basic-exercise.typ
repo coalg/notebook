@@ -243,6 +243,31 @@
     `input()` 関数から1つの整数を受け取り、絶対値を表示するプログラムを作成せよ。
   ]
 
+  #question(points: 2)[
+    アクションゲームの判定部を作る。操作キャラクターがスター状態かつ敵と体当たりしている場合、敵を倒すことができる。「スター状態であるか」と「体当たり状態か」を真偽値として入力し、「敵を倒すことができるか」を真偽値として返却する関数を作れ。テストに必要なassert文が足りていないため追加せよ。
+
+    #sourcecode[
+    ```py
+    def beatable(is_star: bool, is_bumped: bool) -> bool:
+        pass
+
+    assert beatable(True, True) == True
+    assert beatable(False, True) == False
+    ```
+    ]
+  ]
+
+  #question(points: 2)[
+    アクションゲームのミス判定部を作る。操作キャラクターが「パワーアップ状態か」と「敵と接触しているか」を受け取り、操作キャラクターがやられたかどうか（ミス）を判定する。具体的には、パワーアップ状態でないのに敵と接触した場合ミスとする。このような判定関数を作れ。
+
+    #sourcecode[
+    ```py
+    def has_beaten(is_powerup: bool, is_bumped: bool) -> bool:
+        pass
+    ```
+    ]
+  ]
+
   #question(points: 1)[
     割り算を実行し、商 (quotient) と余り (reminder) のペアを返す関数を実装せよ。
 
@@ -268,6 +293,48 @@
 
     assert minute2hours(30) == (0, 30)  # 30分は0時間30分
     assert minute2hours(150) == (2, 30) # 150分は2時間30分
+    ```
+    ]
+  ]
+
+  #question(points: 1)[
+    通貨を両替するプログラムを書け。両替する額（budget）と両替レート（exchange_rate）が与えられる。両替レートは外貨1単位に対して必要な自国通貨を表す。
+
+    #sourcecode[
+    ```py
+    def exchange_money(budget: float, exchange_rate: float) -> float:
+        pass
+
+    assert exchange_money(127.5, 1.2) == 106.25
+    ```
+    ]
+  ]
+
+  #question(points: 1)[
+    両替金額と紙幣の単位を入力し、両替するのに紙幣が何枚必要になるかを計算するプログラムを作れ。例えば10,500円を1,000円で両替する場合、お札は10枚必要になる（端数は切り捨てる）。
+
+    #sourcecode[
+    ```py
+    def number_of_bills(amount: float, denomination: int) -> int:
+        pass
+
+    assert number_of_bills(10500, 1000) == 10
+    ```
+    ]
+  ]
+
+  #question(points: 2)[
+    *Currency Exchange (Excercism) 改題* 通貨を両替するプログラムを書け。両替する額（budget）と両替レート（exchange_rate）、手数料率（spread）と両替単位（denomination）が与えられる。
+    手数料率は `整数値` %として与えられる。そのため、例えば両替レート `1.10`, 手数料率 `10` %の場合、実際の両替レートは `1.20` となる。
+    両替単位は両替を行う紙幣単位を表す。両替は指定された紙幣単位未満で行うことができるため、端数は切り捨てる。
+
+    #sourcecode[
+    ```py
+    def exchangeable_value(budget: float, exchange_rate: float, spread: int, denomination: int) -> int:
+        pass
+
+    assert exchangeable_value(127.25, 1.20, 10, 20) == 80
+    assert exchangeable_value(127.25, 1.20, 10, 5) == 95
     ```
     ]
   ]
@@ -392,7 +459,7 @@
   ]
 
   #question(points: 2)[
-    *コラッツの問題* 任意の正整数 $n$ について、以下の操作を繰り返す。
+    *（コラッツの問題）* 任意の正整数 $n$ について、以下の操作を繰り返す。
     - $n$ が偶数の場合、$n$ を $2$ で割る
     - $n$ が奇数の場合、$3n + 1$ とする
     「有限回の操作で $n$ は必ず $1$ に到達する」という主張がコラッツ予想と呼ばれる。$n=27$ について操作により数がどのように変化するか確認せよ。また操作回数は何回になるか。
@@ -400,6 +467,13 @@
 
   #question(points: 4)[
     前問について、$2 <= n <= 1000$ の範囲で操作回数が最大になる数は何か。また操作中の数の最大値はいくらになるか。
+  ]
+
+  #question(points: 4)[
+    *（アームストロング数）* $n$ 桁の正整数 $N$ について、各桁を$n$ 乗した総和が元の数に等しいとき $N$ をアームストロング数と呼ぶ。例: $372 = 3^3 + 7^3 + 2^3$。
+
+    - 1つの数を受け取り、アームストロング数であるか判定する関数を作れ。
+    - $1 <= N <= 1000000$ のアームストロング数をすべて求めよ。
   ]
 ]
 
