@@ -1503,7 +1503,7 @@
     - $"+"$ コマンドはアキュムレータをインクリメントする
   ]
 
-  #question(points: 5)[
+  #question(points: 7)[
     *（Brainfuck）* 難解プログラミング言語 #link("https://ja.wikipedia.org/wiki/Brainfuck")[Brainfuck] を実装せよ。Brainfuckの仕様は以下の通り。
 
     Brainfuck処理系はインストラクションポインタ、配列（30000要素以上）、前記の配列を指すデータポインタ、入出力からなる。また命令語は以下の8つであり、以下ポインタとはデータポインタのことを指す。
