@@ -41,6 +41,7 @@
       assert speed(10, 31, 10) == 2
       ```
     ]
+    以降のプログラム作成問題では、特に指示がない限り `assert` でプログラムの動作チェックを行うことをおすすめする。
   ]
 
   #question(points: 1)[
@@ -57,8 +58,38 @@
     ]
   ]
 
+  #question(points: 1)[
+    *（分岐）* 夏日は最高気温が25℃以上の日のことである。その日の最高気温から夏日か判定するプログラムを書け。
+    #sourcecode[
+      ```py
+      def is_summerday(high_temprature: int) -> bool:
+          pass
+
+      assert is_summerday(25) == True
+      assert is_summerday(24) == False
+      ```
+    ]
+  ]
+
   #question(points: 2)[
-    *（エラー処理）* 前々問の速度を計算するプログラムについて、経過時間が 0 の場合エラー処理を行え。必要に応じてエラー処理、ゼロ除算について調べよ。
+    *（分岐）* 気象庁では温度ごとに天候が以下のように定義されている。
+    - 最低気温が0℃未満: 冬日
+    - 最高気温が0℃未満: 真冬日
+    - 最高気温が25℃以上: 夏日
+    - 最高気温が30℃以上: 真夏日
+    - 最高気温が35℃以上: 猛暑日
+
+    最高気温と最低気温に基づいて、各天候を文字列として返す関数を書け。条件に当てはまらない場合の呼称を考慮してみよ。
+    #sourcecode[
+      ```py
+      def wheather(high_temprature: int, low_temprature) -> str:
+          pass
+      ```
+    ]
+  ]
+
+  #question(points: 2)[
+    *（エラー処理）* 速度を計算するプログラムについて、経過時間が 0 の場合エラー処理を行え。必要に応じてエラー処理、ゼロ除算について調べよ。
 
     #sourcecode[
       ```py
@@ -134,7 +165,7 @@
   ]
 
   #question(points: 1)[
-    関数が正しく計算されていることを確認するための `assert` 文を書け。以降のプログラム作成問題でも特に指示がない限り `assert` でプログラムの動作チェックを行うことをおすすめする。
+    関数が正しく計算されていることを確認するための `assert` 文を書け。
   ]
 
   #question(points: 2)[
@@ -324,7 +355,7 @@
   ]
 
   #question(points: 2)[
-    *Currency Exchange (Excercism) 改題* 通貨を両替するプログラムを書け。両替する額（budget）と両替レート（exchange_rate）、手数料率（spread）と両替単位（denomination）が与えられる。
+    *（Excercismより）* 通貨を両替するプログラムを書け。両替する額（budget）と両替レート（exchange_rate）、手数料率（spread）と両替単位（denomination）が与えられる。
     手数料率は `整数値` %として与えられる。そのため、例えば両替レート `1.10`, 手数料率 `10` %の場合、実際の両替レートは `1.20` となる。
     両替単位は両替を行う紙幣単位を表す。両替は指定された紙幣単位未満で行うことができるため、端数は切り捨てる。
 
@@ -495,16 +526,11 @@
   ]
 
   #question(points: 1)[
-    スライス記法を使って `Hello, World` の先頭文字から1文字おきの文字列を取り出すプログラムを完成させよ。
+      「よいしれうらなうなかよいあのこ」 を逆順にして文字列として結合せよ。
+  ]
 
-    #sourcecode[
-    ```py
-    hello = "Hello, World"
-    result = hello[???]
-
-    assert result == "Hlo ol"
-    ```
-    ]
+  #question(points: 1)[
+    スライス記法を使って「パタトクカシーー」の先頭文字から1文字おきに文字列を取り出し、文字列として結合するプログラムを完成させよ。
   ]
 
   #question(points: 2)[
@@ -548,6 +574,68 @@
     assert is_palindrome("abcd") == False
     assert is_palindrome("") == True
     assert is_palindrome("a") == True
+    ```
+    ]
+  ]
+
+  #question(points: 3)[
+    ある単語がイソグラム（#link("https://en.wiktionary.org/wiki/isogram")[isogram]）か判定するプログラムを書け。イソグラムとは、単語中の各アルファベットが1回だけ出現する単語を指す。
+    #sourcecode[
+    ```py
+    def isogram(s: str) -> bool:
+        pass
+
+    assert is_isogram("isogram") == True
+    assert is_isogram("computer") == True
+    assert is_isogram("algorithm") == True
+    assert is_isogram("six-years-old") == True
+    assert is_isogram("aadvark") == False
+    ```
+    ]
+  ]
+
+  #question(points: 4)[
+    ある単語が#link("https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%B3%E3%82%B0%E3%83%A9%E3%83%A0")[パングラム（pangram）] か判定するプログラムを書け。
+    パングラムとは、すべてのアルファベットが使われている文字である（アルファベットの使用回数は問わない）。
+
+    #sourcecode[
+    ```py
+    def is_pangram(s: str) -> bool:
+        pass
+
+    assert is_pangram("The quick brown fox jumps over the lazy dog.") == True
+    assert is_pangram("Jackdaws love my big sphinx of quartz.") == True
+    ```
+    ]
+  ]
+
+  #question(points: 5)[
+    *（ISBN検証: ITパスポートH24春期 中間Dに類題あり）* 書籍の識別番号である ISBN-10 についてその正当性を検証するプログラムを書け。
+
+    *説明: * ISBN-10はハイフンで区切られた9桁の数字と1桁のチェック数字から構成される。チェック数字は 0～9の数字または `X` の場合があり、`X` は 10 を表す。ハイフンはある場合もあるし、ない場合もある。
+
+    チェックディジットの正しさは以下の式で検証される（modは左の式を右で割ったときの余りとなる）。
+
+    ```
+    (d₁ * 10 + d₂ * 9 + d₃ * 8 + d₄ * 7 + d₅ * 6 + d₆ * 5 + d₇ * 4 + d₈ * 3 + d₉ * 2 + d₁₀ * 1) mod 11 == 0
+    ```
+
+    結果が真であれば正しいISBN-10コードであり、そうでなければ無効なISBNである。
+
+    例として `3-598-21508-8`を取り上げる。これは以下の通り計算される。
+
+    ```
+    (3 * 10 + 5 * 9 + 9 * 8 + 8 * 7 + 2 * 6 + 1 * 5 + 5 * 4 + 0 * 3 + 8 * 2 + 8 * 1) mod 11 == 0
+    ```
+
+    結果が真であるためこれは正しいISBN-10コードである。
+
+    #sourcecode[
+    ```py
+    def is_isbn10(s: str) -> bool:
+        pass
+
+    assert is_isbn10("3-598-21508-8") == True
     ```
     ]
   ]
@@ -599,6 +687,10 @@
     assert is_integer("") == False
     ```
     ]
+  ]
+
+  #question(points: 3)[
+    *（言語処理100本ノックより）* 以下の文字列`Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics.` について、単語に分解し、各単語のアルファベットの文字数を出現順に並べたリストを出力せよ。
   ]
 
   #question(points: 5)[
@@ -1402,13 +1494,37 @@
   ]
 
   #question(points: 5)[
-    *プログラミング言語HQ9+* この問題では難解プログラミング言語HQ9+を実装する。HQ9+の仕様は以下の通り。
+    *（HQ9+）* 難解プログラミング言語HQ9+を実装せよ。HQ9+の仕様は以下の通り。
 
     - HQ9+は4つの命令 $"H,Q,9,+"$から構成される。
     - $"H"$ コマンドは`Hello, world`を表示する。
     - $"Q"$ コマンドは実行しているプログラム自身を表示する（Quine）
     - $"9"$ コマンドは #link("https://dic.nicovideo.jp/a/99%20bottles%20of%20beer")[『99 Bottles of Beer』の歌詞]を出力する。
     - $"+"$ コマンドはアキュムレータをインクリメントする
+  ]
+
+  #question(points: 5)[
+    *（Brainfuck）* 難解プログラミング言語 #link("https://ja.wikipedia.org/wiki/Brainfuck")[Brainfuck] を実装せよ。Brainfuckの仕様は以下の通り。
+
+    Brainfuck処理系はインストラクションポインタ、配列（30000要素以上）、前記の配列を指すデータポインタ、入出力からなる。また命令語は以下の8つであり、以下ポインタとはデータポインタのことを指す。
+    - `>` ポインタをインクリメントする
+    - `<` ポインタをデクリメントする
+    - `+` ポインタが指す値をインクリメントする
+    - `-` ポインタが指す値をデクリメントする
+    - `-` ポインタが指す値をデクリメントする
+    - `.` ポインタが指す値を出力する
+    - `,` 入力から1バイト読み込み、ポインタが指す先に代入する
+    - `[` ポインタが指す値が0なら対応する `]` の直後にジャンプする。
+    - `]` ポインタが指す値が0でないなら対応する `[` の直後にジャンプする。
+
+    #sourcecode[
+      ```py
+      def bf(program: str):
+          pass
+
+      bf("++++++++++[>+++++++>++++++++++>+++++++++++>+++>+++++++++>+<<<<<<-]>++.>+.>--..+++.>++.>---.<<.+++.------.<-.>>+.>>.") # Hello World! と出力される（らしい）
+      ```
+    ]
   ]
 ]
 
