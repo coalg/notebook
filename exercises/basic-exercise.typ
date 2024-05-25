@@ -5,6 +5,7 @@
 #set text(lang:"ja", font: "Harano Aji Mincho", weight: 300, size: 12pt)
 
 #set list(indent: 2em)
+#set enum(indent: 2em, numbering: "a)")
 
 #show link: underline
 #show raw.where(block: false): box.with(
@@ -13,6 +14,21 @@
   outset: (y: 3pt),
   radius: 2pt,
 )
+
+#let question(body, points: none, number: auto) = {
+  grid(
+    inset: (0.5em, 0em),
+    columns: (1fr, auto),
+    column-gutter: 0.5em,
+    _question(points: points)[
+      #context q-nr(style: if-auto-then(number, { if is-assignment() { "問1：" } else { "1." }  }))
+      #body
+    ],
+    if points != none {
+      place(end, dx: 1cm,point-tag(points))
+    }
+  )
+}
 
 // #show raw.where(block: true): block.with(
 //   fill: luma(240),
@@ -149,9 +165,7 @@
       ```
     ]
   ]
-]
-
-#assignment[
+  \
   *（変数と関数）* BMI（Body Mass Index）は体重と身長から算出される、肥満度を表す体格指標である。計算式は以下の通りである。
 
     $ "BMI" = "体重（kg）" / "身長（m）"^2 $
@@ -178,12 +192,8 @@
   #question(points: 2)[
     BMI計算の入力値について何か注意する点はあるか。気付いた点について意見を述べよ。
   ]
-]
+  \
 
-
-#pagebreak()
-
-#assignment[
   *（プログラムの読解）* 以下にプログラムを挙げる。問に回答せよ。
 
   #question(points: 1)[
@@ -404,11 +414,8 @@
     ```
     ]
   ]
-]
 
-#pagebreak()
-
-#assignment[
+  \
   *（数値演算 演習）* 以下のプログラムを作成せよ。
   #question(points: 3)[
     *（フィボナッチ数）* 与えられた整数 `n` について、n番目のフィボナッチ数を計算するプログラムを書け。
@@ -526,11 +533,11 @@
   ]
 
   #question(points: 1)[
-      「よいしれうらなうなかよいあのこ」 を逆順にして文字列として結合せよ。
+      「よいしれうらなうなかよいあのこ」 を逆順にして文字列として表示せよ。
   ]
 
   #question(points: 1)[
-    スライス記法を使って「パタトクカシーー」の先頭文字から1文字おきに文字列を取り出し、文字列として結合するプログラムを完成させよ。
+    スライス記法を使って「パタトクカシーー」の先頭文字から1文字おきに文字列を取り出し、文字列として表示するプログラムを完成させよ。
   ]
 
   #question(points: 2)[
@@ -1531,6 +1538,21 @@
 #pagebreak()
 
 #assignment[
+  以下のテーマについて自分なりに説明せよ。
+  #question(points: 4)[
+    変数とは何か？
+  ]
+  #question(points: 4)[
+    関数とは何か？
+  ]
+  #question(points: 4)[
+    順次、分岐、反復とは何か？
+  ]
+  #question(points: 4)[
+    データ型とは何か？
+  ]
+  \
+
   *（ストラウストラップのプログラミング入門より）* 以下に挙げたテーマから少なくとも1つを選んで議論せよ（800文字以上1200文字以下）。根拠に基づいて議論すること。
   #question(points: 10)[
     ソフトウェアとは何か。ソフトウェアはなぜ重要なのか。
@@ -1544,10 +1566,7 @@
   #question(points: 10)[
     ソフトウェア開発が困難になる理由はなにか。
   ]
-]
-
-
-#assignment[
+  \
   *（ストラウストラップのプログラミング入門より）* 以下に挙げたテーマから少なくとも1つを選んで議論せよ。文字数は問わないが端的かつ必要十分な議論をすること。また、根拠に基づいて意見を述べること。
   #question(points: 10)[
     自分が何らかの知識を持っている職業について、その仕事にソフトウェアがどのように関わっているかを分析してみよ。
@@ -1561,9 +1580,8 @@
   #question(points: 10)[
     人間が行う活動のうち、いかなる形（間接的に）でもコンピュータが関わらない活動を挙げよ。根拠を述べること。
   ]
-]
 
-#assignment[
+  \
   *（令和5年度 技術士第二次試験（情報工学部門）改題）*
   生成AIの技術レベルが著しく向上し、用途も広がっている一方で、その利活用・普及に伴う社会的課題も顕在化してきている。このような状況を踏まえ、生成AIを活用する具体的なサービスを想定し、その構築や運用を行う立場で以下の問いに答えよ。
 
