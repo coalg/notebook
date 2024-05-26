@@ -1,4 +1,4 @@
-## プログラマが知るべき学習に関する科学的知見
+## ソフトウェア開発者が知るべき学習に関する科学的知見
 
 [10 Things Software Developers Should Learn about Learning – Communications of the ACM](https://cacm.acm.org/research/10-things-software-developers-should-learn-about-learning/)
 
