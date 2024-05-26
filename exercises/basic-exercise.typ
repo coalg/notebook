@@ -42,7 +42,7 @@
   *（基本文法の確認）* 以下のプログラムを作成せよ。
 
   #question(points: 1)[
-    *（変数の定義）* 始点、終点、そして到達するまでの経過時間を元に速度を計算するプログラムを作れ。
+    *（変数の定義）* 始点、終点、そして始点から終点まで到達するまでの経過時間を元に速度を計算するプログラムを作れ。
     #sourcecode[
       ```py
       def speed(start: int, end: int, time_elapsed: int) -> int:
@@ -241,7 +241,7 @@
   ]
 
   #question(points: 1)[
-    *（基本情報技術者試験 サンプル問題 改題）* 関数`calc`は $x$, $y$ を受け取り $sqrt(x^2 + y^2)$ を計算する。`**` 演算子のみを使ってこの関数を実装せよ。
+    *（基本情報技術者試験 サンプル問題 改題）* 関数`calc`は $x$, $y$ を受け取り $sqrt(x^2 + y^2)$ を計算する。`+`演算子と`**` 演算子のみを使ってこの関数を実装せよ。
 
     #sourcecode[
     ```python
@@ -485,7 +485,6 @@
     - #link("http://www.aoky.net/articles/jeff_atwood/why_cant_programmers_program.htm")[
       『どうしてプログラマに・・・プログラムが書けないのか?』
     ]
-      - http://www.aoky.net/articles/jeff_atwood/why_cant_programmers_program.htm
   ]
 
   #question(points: 3)[
@@ -1224,6 +1223,7 @@
       ```
     ]
   ]
+
   #question(points: 2)[
     指定された要素数でゼロ埋めされたリストを返す関数を書け。
 
