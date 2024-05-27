@@ -267,6 +267,58 @@
     ]
   ]
 
+  *（プログラムにバグを混入する）* 以下に正しく動作するプログラムを示す。指定したエラーメッセージを表示させるようプログラムにバグ埋め込み（enbugging）を行え。
+  - 参考：#link("https://product.st.inc/entry/2024/05/27/113038")[Ruby "enbugging" quiz の解説]
+  #question(points: 1)[
+    以下のコードをエンバグせよ。
+    #sourcecode[
+      ```py
+      n = 1000
+      print(n + 1)
+      print("No Error")
+      ```
+    ]
+
+    期待エラー: `NameError: name '***' is not defined.`
+  ]
+
+  #question(points: 1)[
+    以下のコードをエンバグせよ。
+    #sourcecode[
+      ```py
+      array = ["NO ERROR"]
+      print(array[0].lower())
+      ```
+    ]
+
+    期待エラー: `IndexError: list index out of range`
+  ]
+
+  #question(points: 1)[
+    以下のコードをエンバグせよ。
+    #sourcecode[
+      ```py
+      a = 10
+      print(a // 2)
+      print("No Error")
+      ```
+    ]
+
+    期待エラー: `TypeError: unsupported operand type(s) for //: *** and ***`
+  ]
+  #question(points: 1)[
+    以下のコードをエンバグせよ。
+    #sourcecode[
+      ```py
+      def f(): return 1
+
+      print(f())
+      ```
+    ]
+
+    期待エラー: `TypeError: f() takes 0 positional arguments but 1 was given`
+  ]
+
 ]
 
 #pagebreak()
