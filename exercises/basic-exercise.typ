@@ -30,13 +30,16 @@
   )
 }
 
-// #show raw.where(block: true): block.with(
-//   fill: luma(240),
-//   inset: (x: 25pt, y: 5pt),
-//   radius: 4pt,
-// )
+#align(center,
+  text(20pt)[ *プログラミング練習問題集* ],
+)
+#align(center,
+  text(14pt)[ 第 0.1 版 ],
+)
 
-= 1. プログラミング基礎
+#set page(numbering: "1")
+
+= 1. プログラミングの基礎
 
 #assignment[
   *（基本文法の確認）* 以下のプログラムを作成せよ。
