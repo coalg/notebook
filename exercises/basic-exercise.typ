@@ -101,7 +101,7 @@
     最高気温と最低気温に基づいて、各天候を文字列として返す関数を書け。条件に当てはまらない場合の呼称を考慮してみよ。
     #sourcecode[
       ```py
-      def wheather(high_temprature: int, low_temprature) -> str:
+      def weather(high_temprature: int, low_temprature) -> str:
           pass
       ```
     ]
