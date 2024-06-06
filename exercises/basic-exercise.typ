@@ -267,8 +267,11 @@
     ]
   ]
 
-  *（プログラムにバグを混入する）* 以下に正しく動作するプログラムを示す。指定したエラーメッセージを表示させるようプログラムにバグ埋め込み（enbugging）を行え。
+  *（プログラムにバグを混入する）* 以下に正しく動作するPythonプログラムを示す。指定したエラーメッセージを表示させるようプログラムにバグ埋め込み（エンバグ, enbugging）を行え。コードの編集文字数については、多くても概ね3文字以内となることに注意せよ。
   - 参考：#link("https://product.st.inc/entry/2024/05/27/113038")[Ruby "enbugging" quiz の解説]
+  - 参考：#link("https://dl.acm.org/doi/10.1145/3587102.3588823")[
+    Mind the Error Message: An Inverted Quiz Format to Direct Learner's Attention to Error Messages
+  ]
   #question(points: 1)[
     以下のコードをエンバグせよ。
     #sourcecode[
@@ -306,6 +309,7 @@
 
     期待エラー: `TypeError: unsupported operand type(s) for //: *** and ***`
   ]
+
   #question(points: 1)[
     以下のコードをエンバグせよ。
     #sourcecode[
@@ -318,7 +322,6 @@
 
     期待エラー: `TypeError: f() takes 0 positional arguments but 1 was given`
   ]
-
 ]
 
 #pagebreak()
@@ -567,6 +570,16 @@
     - 1つの数を受け取り、アームストロング数であるか判定する関数を作れ。
     - $1 <= N <= 1000000$ のアームストロング数をすべて求めよ。
   ]
+
+  #question()[
+    *（1995年 京都大）* 自然数 $n$ の関数 $f(n)$, $g(n)$ を
+
+    $ f(n) = n "を " 7 "で割った余り," $
+
+    $ g(n) = 3 f(sum_(k=1)^7 k^n) $
+
+    によって定める。 あなたの好きな自然数 $n$ を一つ決めて $g(n)$ を定めよ。その $g(n)$ の値をこの設問におけるあなたの得点とする。
+  ]
 ]
 
 #pagebreak()
@@ -698,6 +711,11 @@
 
     assert is_isbn10("3-598-21508-8") == True
     ```
+
+    ]
+
+    - 参考：#link("https://note.com/fukuidharu/n/nca0390441108")[
+      おなじ本？ちがう本？：図書館における「書誌の同定」というお仕事
     ]
   ]
 
