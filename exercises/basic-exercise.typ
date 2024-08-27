@@ -81,7 +81,7 @@
     *（分岐）* 夏日は最高気温が25℃以上の日のことである。その日の最高気温から夏日か判定するプログラムを書け。
     #sourcecode[
       ```py
-      def is_summerday(high_temprature: int) -> bool:
+      def is_summerday(high_temperature: int) -> bool:
           pass
 
       assert is_summerday(25) == True
@@ -101,7 +101,7 @@
     最高気温と最低気温に基づいて、各天候を文字列として返す関数を書け。条件に当てはまらない場合の呼称を考慮してみよ。
     #sourcecode[
       ```py
-      def weather(high_temprature: int, low_temprature) -> str:
+      def weather(high_temperature: int, low_temperature: int) -> str:
           pass
       ```
     ]
@@ -112,7 +112,9 @@
 
     #sourcecode[
       ```py
-      def speed(start: int, end: int, time_elapsed: int) -> int:
+      from typing import Union
+
+      def speed(start: int, end: int, time_elapsed: int) -> Union[int, str]:
           # TODO
           pass
 
@@ -141,6 +143,7 @@
 
   #question(points: 1)[
     *（`while`）* 非負整数 `n` を引数に取り、階乗を計算する関数 `fact` の正しいプログラムを作れ。実装には `while` を使え。
+
     #sourcecode[
       ```py
       def fact(n: int) -> int:
@@ -156,6 +159,7 @@
 
   #question(points: 1)[
     *（`for`）* 非負整数 `n` を引数に取り、階乗を計算する関数 `fact` の正しいプログラムを作れ。実装には `for` を使え。
+
     #sourcecode[
       ```py
       def fact(n: int) -> int:
@@ -207,6 +211,7 @@
     ```
     ]
   ]
+
   #question(points: 1)[
     *（基本情報技術者試験 R5類題）* 以下のプログラムについて、`proc2`を呼び出した際の動作を説明せよ。
     #sourcecode[
@@ -244,7 +249,7 @@
   ]
 
   #question(points: 1)[
-    *（基本情報技術者試験 サンプル問題 改題）* 関数`calc`は $x$, $y$ を受け取り $sqrt(x^2 + y^2)$ を計算する。`+`演算子と`**` 演算子のみを使ってこの関数を実装せよ。
+    *（基本情報技術者試験 サンプル問題 改題）* 関数`calc`は $x$, $y$ を受け取り $sqrt(x^2 + y^2)$ を計算する。`+` 演算子と`**` 演算子のみを使ってこの関数を実装せよ。
 
     #sourcecode[
     ```python
@@ -253,11 +258,12 @@
     ```
     ]
   ]
+
   #question(points: 2)[
     *（基本情報技術者試験 サンプル問題）* 以下の関数 `makeNewArray` を `makeNewArray([3, 2, 1, 6, 5, 4])` と呼び出した時、返り値のリストの添字 `4` 番目の値は何になるか。
     #sourcecode[
       ```py
-      def makeNewArray(input: list) -> list:
+      def makeNewArray(input: list[int]) -> list[int]:
           out = [input[0]]
           for i in range(1, len(input)):
               tail = out[len(out)-1]
@@ -329,7 +335,6 @@
 #assignment[
   *（数値演算と条件分岐 基本）*以下のプログラムを作成せよ。
 
-
   #question(points: 1)[
     `input()` 関数を使い、入力した文字列をそのまま表示するプログラムを作成せよ。
   ]
@@ -357,7 +362,7 @@
   ]
 
   #question(points: 2)[
-    アクションゲームのミス判定部を作る。操作キャラクターが「パワーアップ状態か」と「敵と接触しているか」を受け取り、操作キャラクターがやられたかどうか（ミス）を判定する。具体的には、パワーアップ状態でないのに敵と接触した場合ミスとする。このような判定関数を作れ。
+    アクションゲームのミス判定部を作る。操作キャラクターが「パワーアップ状態か」と「敵と接触しているか」を受け取り、操作キャラクターがやられたかどうか（ミス）を判定する。パワーアップ状態でないのに敵と接触した場合ミスとし、それ以外ではやられていないと判定する。
 
     #sourcecode[
     ```py
@@ -383,7 +388,7 @@
   ]
 
   #question(points: 2)[
-    分を受け取り、時間と分のタプル値 `(hour, minutes)`を返却するプログラムを作成せよ。
+    時間を分で受け取り、時間と分のタプル値 `(hour, minutes)`を返却するプログラムを作成せよ。
 
     #sourcecode[
     ```py
@@ -587,7 +592,7 @@
 #assignment[
   *（文字列）* 以下のプログラムを作成せよ。
   #question(points: 2)[
-    与えられた文字列の数をカウントする関数を定義せよ。ただし大文字・小文字を区別せずカウントすること。
+    ある文字列に対して、与えられた文字の数をカウントする関数を定義せよ。ただし大文字・小文字を区別せずカウントすること。
 
     #sourcecode[
     ```py
@@ -595,6 +600,22 @@
         pass
 
     assert count("AaAa", "a") == 4
+    ```
+    ]
+  ]
+
+  #question(points: 4)[
+    ある文字列に対して、与えられた文字列の数をカウントする関数を定義せよ。
+
+    #sourcecode[
+    ```py
+    def counts(s: str, c: str) -> int:
+        pass
+
+    assert counts("aaaa", "a") == 4
+    assert counts("aaa", "aa") == 2
+    assert counts("yayay", "yay") == 2
+    assert counts("111-111-111-111", "111-111") == 3
     ```
     ]
   ]
@@ -619,7 +640,7 @@
   ]
 
   #question(points: 1)[
-    `"Hello"` と `"world"` を比較した時、どちらが大きな文字と判定されるか説明せよ。
+    `"Hello"` と `"world"` を比較演算子で比較した時、どちらが大きな文字と判定されるか、なぜそうなるか説明せよ。
   ]
 
   #question(points: 2)[
@@ -787,7 +808,7 @@
     ]
   ]
 
-  #question(points: 8)[
+  #question(points: 5)[
     *（HTMLタグの除去）* HTML文書の本文からタグを取り除いて出力する関数を作成せよ。正規表現を使う場合は適宜調べよ。
 
     #sourcecode[
@@ -876,21 +897,23 @@
 
     - ローカル部
       - 英数字、アンダースコア `_`、ピリオド `.` のみを使用可能
-      - 1文字目は英数字のみを使える
+      - 1文字目は英字のみを使える
       - 末尾にピリオドは使えない
       - ピリオドは連続できない
     - ドメイン部
       - 英数字、ハイフン `-`、ピリオド `.` のみを使用可能
+      - 1文字目は英字のみを使える
       - 末尾にピリオドは使えない
       - ピリオドは連続できない
     - ローカル部とドメイン部以外は存在しない
 
     #sourcecode[
       ```py
-      def is_valid_email(email_str: str) -> bool:
+      def is_valid_email(address: str) -> bool:
           pass
 
       assert is_valid_email("john.doe@example.com") == True
+      assert is_valid_email("john1.doe2@example.com") == True
       assert is_valid_email("john..doe@example.com") == False
       assert is_valid_email("john.doe.@example.com") == False
       assert is_valid_email("john@ex@mple.com") == False
@@ -898,6 +921,8 @@
       assert is_valid_email("john@example.music") == True
       assert is_valid_email("john@example..com") == False
       assert is_valid_email("john@example.com.") == False
+      assert is_valid_email("1john@example.com") == False
+      assert is_valid_email("john@example1.com") == False
       ```
     ]
   ]

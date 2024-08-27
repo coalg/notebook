@@ -1,0 +1,4 @@
+Expr = { Prod "+" Expr #Add } / Prod
+Prod = { Term "*" Term #Mul } / Term
+Term = Int / "(" Expr ")"
+Int = { [0-9]+ #Int }

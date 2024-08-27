@@ -1,0 +1,2 @@
+Real = { {DIGIT* #Fraction } '.' {DIGIT+ #Exponent } #Float }
+DIGIT = [0-9]
