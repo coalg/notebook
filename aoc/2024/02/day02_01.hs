@@ -1,6 +1,6 @@
 import System.IO
 import Control.Monad
-import Control.Arrow ((&&&))
+import Control.Arrow ((&&&), (>>>))
 
 pairs :: [a] -> [(a, a)]
 pairs [] = []
@@ -14,7 +14,7 @@ g (x, y) = y - x
 monotone :: [Int] -> Bool
 monotone xs = all (< 0) xs || all (> 0) xs
 
-smallGap = all ((\x -> x >= 1 && x <= 3) . abs)
+smallGap = all (abs >>> ((>= 1) &&& (<= 3)) >>> uncurry (&&))
 
 isSafe xs =  monotone xs && smallGap xs
 
