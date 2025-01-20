@@ -17,7 +17,7 @@ fn main() {
 
                 let ans_input = ans_input.trim().parse::<i32>().unwrap();
                 dbg!(ans_input);
-                if dbg!(ans_input == op1 + op2) {
+                if ans_input == op1 + op2 {
                     println!("正解！");
                     num_of_correct += 1;
                     break;
@@ -35,7 +35,7 @@ fn main() {
 
                 let ans_input = ans_input.trim().parse::<i32>().unwrap();
                 dbg!(ans_input);
-                if dbg!(ans_input == op1 - op2) {
+                if ans_input == op1 - op2 {
                     println!("正解！");
                     num_of_correct += 1;
                     break;
@@ -45,7 +45,5 @@ fn main() {
             },
             _ => unreachable!(),
         }
-        println!("i32 が扱えるデータ範囲: {} ~ {}", i32::MIN, i32::MAX);
-        println!("u32 が扱えるデータ範囲: {} ~ {}", u32::MIN, u32::MAX);
     }
 }
