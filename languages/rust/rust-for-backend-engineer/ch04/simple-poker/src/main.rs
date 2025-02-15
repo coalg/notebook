@@ -54,4 +54,29 @@ fn main() {
     for number in numbers {
         hand[number - 1] = deck.pop().unwrap();
     }
+
+    let suit = hand.first().unwrap().suit;
+    let flash = hand.iter().all(|c| c.suit == suit);
+
+    let mut count = 0;
+
+    for i in 0..hand.len() - 1 {
+        for j in i + 1..hand.len() {
+            if hand[i].rank == hand[j].rank {
+                count += 1;
+            }
+        }
+    }
+
+    if flash {
+        println!("フラッシュ！");
+    } else if count >= 3 {
+        println!("スリーカード！");
+    } else if count == 2 {
+        println!("ツーカード！");
+    } else if count == 1 {
+        println!("ワンペア！");
+    } else {
+        println!("役なし…");
+    }
 }
