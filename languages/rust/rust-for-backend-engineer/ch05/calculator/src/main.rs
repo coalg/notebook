@@ -141,10 +141,14 @@ fn evaluate(expr: Expr) -> Result<f64, String> {
     }
 }
 
+fn round_to_two_decimals(num: f64) -> f64 {
+    (num * 100.0).round() / 100.0
+}
+
 fn calculate(expression: &str) -> Result<f64, String> {
     let tokens = tokenize(expression)?;
     let expr = parse(&tokens)?;
-    evaluate(expr)
+    evaluate(expr).map(round_to_two_decimals)
 }
 
 #[cfg(test)]
@@ -213,10 +217,22 @@ mod tests {
         assert_eq!(calculate("(10 * (2 + 3)) - 1"), Ok(49.0));
         assert_eq!(calculate("((10 / 2) + 5) * 2"), Ok(20.0));
     }
+
+    #[test]
+    fn test_decimal_calculations() {
+        assert_eq!(calculate("1.5 + 2.5"), Ok(4.0));
+        assert_eq!(calculate("5.5 - 3.2"), Ok(2.3));
+        assert_eq!(calculate("2.5 * 4.0"), Ok(10.0));
+        assert_eq!(calculate("10.0 / 2.5"), Ok(4.0));
+        assert_eq!(calculate("1.2 + 3.4 * 5.6"), Ok(20.24));
+        assert_eq!(calculate("(1.2 + 3.4) * 5.6"), Ok(25.76));
+    }
+
     #[test]
     fn test_invalid_expression() {
         assert_eq!(calculate("1 + + 2"), Err("Invalid expression".to_string()));
     }
+
     #[test]
     fn test_mismatched_parentheses() {
         assert_eq!(
