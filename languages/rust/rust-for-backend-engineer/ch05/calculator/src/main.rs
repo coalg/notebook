@@ -144,14 +144,16 @@ fn evaluate(expr: Expr) -> Result<f64, String> {
     }
 }
 
-fn round_to_two_decimals(num: f64) -> f64 {
-    (num * 100.0).round() / 100.0
+fn round_to_decimals(num: f64, precision: u32) -> f64 {
+    let factor = 10.0_f64.powi(precision as i32);
+    (num * factor).round() / factor
 }
 
 fn calculate(expression: &str) -> Result<f64, String> {
     let tokens = tokenize(expression)?;
     let expr = parse(&tokens)?;
-    evaluate(expr).map(round_to_two_decimals)
+    let result = evaluate(expr)?;
+    Ok(round_to_decimals(result, 2))
 }
 
 #[cfg(test)]
@@ -242,7 +244,15 @@ mod tests {
             calculate("(1 + 2"),
             Err("Mismatched parentheses".to_string())
         );
-        assert_eq!(calculate("1 + 2)"), Err("Invalid expression".to_string()));
+        assert_eq!(
+            calculate("1 + 2)"),
+            Err("Invalid expression: Unexpected token at position 3".to_string())
+        );
+    }
+
+    #[test]
+    fn test_decimal_with_parentheses() {
+        assert_eq!(calculate("(1.5 + 2.5) * 2.0"), Ok(8.0));
     }
 }
 
