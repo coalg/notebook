@@ -1,14 +1,16 @@
+// トークンの種類を表す列挙型
 #[derive(Debug, PartialEq)]
 enum Token {
-    Number(f64),
-    Plus,
-    Minus,
-    Multiply,
-    Divide,
-    LeftParen,
-    RightParen,
+    Number(f64), // 数値
+    Plus,        // 加算演算子 (+)
+    Minus,       // 減算演算子 (-)
+    Multiply,    // 乗算演算子 (*)
+    Divide,      // 除算演算子 (/)
+    LeftParen,   // 左括弧 (()
+    RightParen,  // 右括弧 ())
 }
 
+// 字句解析器 (トークナイザー): 文字列をトークン列に変換する
 fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
     let mut tokens = Vec::new();
     let mut current_number = String::new();
@@ -38,6 +40,7 @@ fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
         }
     }
 
+    // 最後の数値文字列を処理
     if !current_number.is_empty() {
         let num = current_number
             .parse::<f64>()
@@ -48,17 +51,20 @@ fn tokenize(expression: &str) -> Result<Vec<Token>, String> {
     Ok(tokens)
 }
 
+// 構文木 (AST) のノードを表す列挙型
 #[derive(Debug, PartialEq)]
 enum Expr {
-    Number(f64),
-    Add(Box<Expr>, Box<Expr>),
-    Subtract(Box<Expr>, Box<Expr>),
-    Multiply(Box<Expr>, Box<Expr>),
-    Divide(Box<Expr>, Box<Expr>),
+    Number(f64),                    // 数値
+    Add(Box<Expr>, Box<Expr>),      // 加算 (左辺, 右辺)
+    Subtract(Box<Expr>, Box<Expr>), // 減算 (左辺, 右辺)
+    Multiply(Box<Expr>, Box<Expr>), // 乗算 (左辺, 右辺)
+    Divide(Box<Expr>, Box<Expr>),   // 除算 (左辺, 右辺)
 }
 
+// 構文解析器: トークン列を構文木に変換する
 fn parse(tokens: &[Token]) -> Result<Expr, String> {
     let (expr, pos) = parse_expr(tokens, 0)?;
+    // すべてのトークンが消費されたか確認
     if pos != tokens.len() {
         Err("Invalid expression".to_string())
     } else {
@@ -66,6 +72,7 @@ fn parse(tokens: &[Token]) -> Result<Expr, String> {
     }
 }
 
+// 式 (expression) を解析する
 fn parse_expr(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     let (mut left, mut pos) = parse_term(tokens, pos)?;
 
@@ -88,6 +95,7 @@ fn parse_expr(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     Ok((left, pos))
 }
 
+// 項 (term) を解析する
 fn parse_term(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     let (mut left, mut pos) = parse_factor(tokens, pos)?;
 
@@ -110,10 +118,12 @@ fn parse_term(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     Ok((left, pos))
 }
 
+// 因子 (factor) を解析する
 fn parse_factor(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     match tokens.get(pos) {
         Some(Token::Number(num)) => Ok((Expr::Number(*num), pos + 1)),
         Some(Token::LeftParen) => {
+            // 左括弧: 括弧内の式を再帰的に解析
             let (expr, next_pos) = parse_expr(tokens, pos + 1)?;
             match tokens.get(next_pos) {
                 Some(Token::RightParen) => Ok((expr, next_pos + 1)),
@@ -124,6 +134,7 @@ fn parse_factor(tokens: &[Token], pos: usize) -> Result<(Expr, usize), String> {
     }
 }
 
+// 構文木を評価して計算結果を求める
 fn evaluate(expr: Expr) -> Result<f64, String> {
     match expr {
         Expr::Number(num) => Ok(num),
@@ -141,6 +152,7 @@ fn evaluate(expr: Expr) -> Result<f64, String> {
     }
 }
 
+// 小数点以下第三位を四捨五入する関数
 fn round_to_two_decimals(num: f64) -> f64 {
     (num * 100.0).round() / 100.0
 }
