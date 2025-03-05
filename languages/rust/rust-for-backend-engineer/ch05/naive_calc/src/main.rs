@@ -57,8 +57,8 @@ fn print_output(value: f64) {
     println!("  => {}", value)
 }
 
-fn add_and_print_memory(memories: &mut Vec<f64>, token: &str, prev_result: f64) {
-    let slot_index: usize = token[3..token.len() - 1].parse().unwrap();
+fn add_and_print_memory(memories: &mut [f64], token: &str, prev_result: f64) {
+    let slot_index: usize = token.strip_prefix("mem").unwrap().parse().unwrap();
     memories[slot_index] += prev_result;
     print_output(memories[slot_index]);
 }
