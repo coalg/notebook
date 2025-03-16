@@ -11,7 +11,7 @@ class Solution(object):
         :rtype: Optional[ListNode]
         """
 
-        dummy = pre = ListNode(0)
+        dummy = pre = ListNode(0) # type: ignore
         dummy.next = head
 
         while head and head.next:
