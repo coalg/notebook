@@ -9,6 +9,12 @@
 // 手直ししたのが本ファイル（ident-claude-tablex-fixed.pdf）
 // 画像はreferenceフォルダを参照
 
+#let filename = "ident.json"
+#if ("filename" in sys.inputs) {
+  filename = sys.inputs.at("filename")
+}
+#let meta = json(filename)
+
 #set page(
   paper: "a4",
   margin: (x: 0.8cm, y: 0.8cm),
@@ -86,9 +92,9 @@
   inset: 6pt,
 
   [本人確認を行った者],
-  [#text(fill: rgb("#FF6B35"), size: 10pt)[（氏名）全宅　太郎]],
+  [#text(fill: rgb("#FF6B35"), size: 10pt)[（氏名）#meta.identity_implementer]],
   [本人確認記録の作成者],
-  [#text(fill: rgb("#FF6B35"), size: 10pt)[全宅　太郎]],
+  [#text(fill: rgb("#FF6B35"), size: 10pt)[#meta.identity_creator]],
 )
 
 #v(-0.6em)
@@ -105,19 +111,19 @@
     個人の氏名及び住所※(国、地方公共団体の場合を含む)
   ],
   [フリガナ],
-  [#text(fill: rgb("#FF6B35"))[ゼンタク　イチロウ]],
+  [#text(fill: rgb("#FF6B35"))[#meta.identification.furigana]],
 
   (),
   (),
   [氏　名],
-  [#text(fill: rgb("#FF6B35"))[甲野]],
+  [#text(fill: rgb("#FF6B35"))[#meta.identification.fullname]],
 
   (),
   (),
-  colspanx(2)[(住所) #text(fill: rgb("#FF6B35"))[東京都千代田区桜丘〇丁目〇番〇号]
+  colspanx(2)[(住所) #text(fill: rgb("#FF6B35"))[#meta.identification.address]
     #h(1fr)#text(
       fill: rgb("#FF6B35"),
-    )[ （生年月日） 平成10年1月1日]],
+    )[ （生年月日） #meta.identification.birthday]],
 
   (),
   rowspanx(3)[法人の名称及び本人又は法人の取締役等の氏名及び住所],
@@ -141,12 +147,12 @@
   (),
   colspanx(2)[(所在地)],
   colspanx(2)[ #text(size: 8pt)[法人・代理人取引における顧客等との関係又は国等との取引における取引者の関係]],
-  [],
+  [#meta.identification.relation],
   (),
   (),
   colspanx(2)[通称\
     （その理由）],
-  [#h(15em)],
+  [#meta.identification.common_name],
 
   (),
 )
@@ -162,7 +168,7 @@
   inset: 6pt,
 
   [取引の種類],
-  [#text(fill: rgb("#FF6B35"))[売買の媒介]],
+  [#text(fill: rgb("#FF6B35"))[#meta.transaction_type]],
 )
 
 #v(-0.7em)
@@ -182,7 +188,7 @@
   ],
   [窓口で\
     確　認],
-  [受付日時(確認日時)#h(1em)#text(fill: rgb("#FF6B35"))[平成20年　3月　1日(土)　12時00分]\ 本人確認書類※\ （名称： #text(fill: rgb("#FF6B35"))[運転免許証　第１２３４５６７８９号]）],
+  [受付日時(確認日時)#h(1em)#text(fill: rgb("#FF6B35"))[#meta.identification_method.reception_datetime]\ 本人確認書類※\ （名称： #text(fill: rgb("#FF6B35"))[運転免許証　第１２３４５６７８９号]）],
 
   (),
   (),
