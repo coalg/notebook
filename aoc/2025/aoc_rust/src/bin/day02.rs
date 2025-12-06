@@ -1,9 +1,9 @@
 use aoc::read_input;
 
-fn part1(input: &str) -> i128 {
-    let xs: Vec<(i128, i128)> = input
+fn parse_range_pairs(input: &str) -> Vec<(i128, i128)> {
+    input
         .trim_end()
-        .split(",")
+        .split(',')
         .filter_map(|s| {
             let mut parts = s.split('-');
             Some((
@@ -11,8 +11,11 @@ fn part1(input: &str) -> i128 {
                 parts.next()?.parse::<i128>().ok()?,
             ))
         })
-        .collect();
+        .collect()
+}
 
+fn part1(input: &str) -> i128 {
+    let xs: Vec<(i128, i128)> = parse_range_pairs(input);
     let mut answer = 0;
     for (start, end) in xs {
         for x in start..=end {
@@ -30,8 +33,33 @@ fn part1(input: &str) -> i128 {
     answer
 }
 
-fn part2(input: &str) -> i32 {
-    input.len().try_into().unwrap()
+fn divisors(n: usize) -> Vec<usize> {
+    (1..n).filter(|&i| n % i == 0).collect()
+}
+
+fn part2(input: &str) -> i128 {
+    let xs: Vec<(i128, i128)> = parse_range_pairs(input);
+    let mut answer = 0;
+
+    for (start, end) in xs {
+        for x in start..=end {
+            let s = x.to_string();
+
+            let divisors = divisors(s.len());
+            for divide in divisors {
+                let chunks: Vec<_> = s.as_bytes().chunks_exact(divide.into()).collect();
+
+                let first = chunks[0];
+
+                if chunks.iter().all(|chunk| *chunk == first) {
+                    answer += x;
+                    break;
+                }
+            }
+        }
+    }
+
+    answer
 }
 
 fn main() {
@@ -48,5 +76,11 @@ mod tests {
     fn test_part1() {
         let input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
         assert_eq!(part1(&input), 1227775554);
+    }
+
+    #[test]
+    fn test_part2() {
+        let input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
+        assert_eq!(part2(&input), 4174379265);
     }
 }
