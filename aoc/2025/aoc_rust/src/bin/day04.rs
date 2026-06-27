@@ -48,6 +48,23 @@ fn part1(input: &str) -> u128 {
 }
 
 fn part2(input: &str) -> u128 {
+    let lines: Vec<_> = input
+        .trim_end()
+        .lines()
+        .map(|x| x.chars().collect::<Vec<_>>())
+        .collect();
+
+    let directions: [(isize, isize); 8] = [
+        (-1, -1),
+        (0, -1),
+        (1, -1),
+        (-1, 0),
+        (1, 0),
+        (-1, 1),
+        (0, 1),
+        (1, 1),
+    ];
+
     0
 }
 

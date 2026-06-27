@@ -3,3 +3,4 @@ target
 dist-newstyle
 obj
 paiza
+__pycache__
